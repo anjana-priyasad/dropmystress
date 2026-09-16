@@ -2,8 +2,16 @@
 packages:
   - "."
 
-# None of these install scripts are needed to run the app, so they stay disabled.
+# pnpm 11: which dependencies may run install scripts.
 allowBuilds:
   '@google/genai': false
   protobufjs: false
   unrs-resolver: false
+  # Needed by the Cloudflare adapter to download native binaries.
+  esbuild: true
+  workerd: true
+
+# pnpm 10 equivalent of the allow-list above.
+onlyBuiltDependencies:
+  - esbuild
+  - workerd
