@@ -14,7 +14,7 @@ export const HOME_FAQ: FaqItem[] = [
   {
     question: "What stress relief tools can I use?",
     answer:
-      "There are 20 tools: breathing patterns like box breathing and 4-7-8, muscle relaxation, a body scan, 5-4-3-2-1 grounding, a thought reframe, a worry sorter, a brain dump, journal prompts, a gratitude jar, affirmation cards, bubble wrap, a stress ball, a zen sand garden, a mood tracker, a quick stress check, and a soundscape mixer.",
+      "There are 20 tools: breathing patterns like box breathing and 4-7-8, muscle relaxation, a body scan, 5-4-3-2-1 grounding, a thought reframe, a worry sorter, a brain dump, journal prompts, a gratitude jar, affirmation cards, bubble wrap, a stress ball, a zen garden you can build, a mood tracker, a quick stress check, and a soundscape mixer.",
   },
   {
     question: "Where are my journal entries and mood check-ins stored?",

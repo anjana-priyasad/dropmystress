@@ -221,14 +221,14 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: "sand-garden",
-    name: "Zen sand garden",
-    tagline: "Rake slow patterns and place stones.",
+    name: "Zen garden",
+    tagline: "Rake sand, plant trees and flowers, and add koi, birds and more.",
     description:
-      "Draw calm lines in the sand with a rake, place stones, then smooth it all away and begin again.",
+      "Build your own peaceful garden: rake patterns in the sand, plant cherry trees, bamboo and lotus flowers, add a pond with koi, a stone lantern, and animals — then watch it come alive at sunset or night, with gentle garden sounds.",
     category: "play",
     duration: "Any",
     icon: Mountain,
-    keywords: "zen draw calm fun game focus",
+    keywords: "zen garden builder relaxing game draw calm fun focus plants flowers koi pond sand rake",
   },
   {
     slug: "mood-tracker",

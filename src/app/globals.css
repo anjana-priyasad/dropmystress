@@ -28,3 +28,54 @@ body {
     scroll-behavior: auto;
   }
 }
+
+/* ——— Zen garden ——— */
+@keyframes garden-sway { from { transform: rotate(-1.6deg); } to { transform: rotate(1.6deg); } }
+@keyframes garden-sway-soft { from { transform: rotate(-3.5deg); } to { transform: rotate(3.5deg); } }
+@keyframes garden-bob { from { transform: translateY(0); } to { transform: translateY(-5%); } }
+@keyframes garden-swim {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(12%, -10%) rotate(-10deg); }
+  50% { transform: translate(0, -20%) rotate(0deg); }
+  75% { transform: translate(-12%, -10%) rotate(10deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+@keyframes garden-flutter {
+  0% { transform: translate(0, 0) rotate(-6deg); }
+  25% { transform: translate(40%, -45%) rotate(8deg); }
+  50% { transform: translate(80%, -5%) rotate(-4deg); }
+  75% { transform: translate(30%, 35%) rotate(6deg); }
+  100% { transform: translate(0, 0) rotate(-6deg); }
+}
+@keyframes garden-hop {
+  0%, 55%, 100% { transform: translateY(0); }
+  64% { transform: translateY(-22%); }
+  72% { transform: translateY(0); }
+  80% { transform: translateY(-12%); }
+  88% { transform: translateY(0); }
+}
+@keyframes garden-breathe { from { transform: scale(1); } to { transform: scale(1.04); } }
+
+.garden-anim-sway { transform-origin: 50% 92%; animation: garden-sway 5.5s ease-in-out infinite alternate; }
+.garden-anim-sway-soft { transform-origin: 50% 92%; animation: garden-sway-soft 3.8s ease-in-out infinite alternate; }
+.garden-anim-bob { animation: garden-bob 3.2s ease-in-out infinite alternate; }
+.garden-anim-swim { animation: garden-swim 14s ease-in-out infinite; }
+.garden-anim-flutter { animation: garden-flutter 9s ease-in-out infinite; }
+.garden-anim-hop { animation: garden-hop 4.5s ease-in-out infinite; }
+.garden-anim-breathe { transform-origin: 50% 90%; animation: garden-breathe 3.4s ease-in-out infinite alternate; }
+
+@keyframes garden-fall {
+  from { transform: translate3d(0, -8cqh, 0) rotate(0deg); }
+  to { transform: translate3d(var(--drift, 0px), 108cqh, 0) rotate(var(--spin, 0deg)); }
+}
+@keyframes garden-firefly {
+  0%, 100% { transform: translate(0, 0); opacity: 0.15; }
+  25% { transform: translate(3cqw, -4cqh); opacity: 1; }
+  50% { transform: translate(-2cqw, -8cqh); opacity: 0.35; }
+  75% { transform: translate(-4cqw, -3cqh); opacity: 0.95; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="garden-anim-"] { animation: none !important; }
+  .garden-effects { display: none; }
+}

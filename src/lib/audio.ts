@@ -120,7 +120,7 @@ export function playThud(intensity = 1) {
  * A buffer of sparse, tiny "grain" impulses with short decays. Filtered, it sounds
  * like individual grains of sand or gravel scraping past each other.
  */
-function createGrainBuffer(ctx: AudioContext, grainsPerSecond: number, grainMs: number, seconds = 3): AudioBuffer {
+export function createGrainBuffer(ctx: AudioContext, grainsPerSecond: number, grainMs: number, seconds = 3): AudioBuffer {
   const length = Math.floor(ctx.sampleRate * seconds);
   const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
   const data = buffer.getChannelData(0);

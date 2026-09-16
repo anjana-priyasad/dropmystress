@@ -10,7 +10,7 @@ import JournalPrompts from "./JournalPrompts";
 import MeditationTimer from "./MeditationTimer";
 import MoodTracker from "./MoodTracker";
 import MuscleRelaxation from "./MuscleRelaxation";
-import SandGarden from "./SandGarden";
+import ZenGarden from "@/components/garden/ZenGarden";
 import SelfCompassion from "./SelfCompassion";
 import SoundscapeMixer from "./SoundscapeMixer";
 import StressBall from "./StressBall";
@@ -38,7 +38,7 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   affirmations: AffirmationCards,
   "bubble-wrap": BubbleWrap,
   "stress-ball": StressBall,
-  "sand-garden": SandGarden,
+  "sand-garden": ZenGarden,
   "mood-tracker": MoodTracker,
   "stress-check": StressCheck,
   soundscapes: SoundscapeMixer,
