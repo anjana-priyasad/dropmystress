@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ExternalLink, Phone, Siren, Users } from "lucide-react";
+import JsonLd from "@/components/JsonLd";
 import SiteHeader from "@/components/SiteHeader";
+import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { Panel } from "@/components/ui";
 
-export const metadata: Metadata = {
-  title: "Get help now",
-  description: "If you're in crisis, you don't have to go through it alone. Find a helpline near you.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Get Help Now — Crisis Helplines",
+  description:
+    "If you're in crisis, you don't have to go through it alone. Find crisis helplines and emergency numbers for Sri Lanka, the US, the UK and Ireland, and more.",
+  path: "/help",
+});
 
 const HELPLINES = [
   { region: "Sri Lanka", name: "National Mental Health Helpline", contact: "1926", href: "tel:1926", detail: "Free, 24 hours" },
@@ -18,6 +22,16 @@ const HELPLINES = [
 export default function HelpPage() {
   return (
     <main className="min-h-dvh">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+            { "@type": "ListItem", position: 2, name: "Get help now", item: absoluteUrl("/help") },
+          ],
+        }}
+      />
       <div className="mx-auto max-w-3xl px-5 py-6 sm:px-8">
         <SiteHeader />
 

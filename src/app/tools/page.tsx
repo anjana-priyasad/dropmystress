@@ -1,16 +1,49 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ToolsDirectory from "@/components/ToolsDirectory";
+import { SITE_NAME, absoluteUrl, pageMetadata } from "@/lib/site";
+import { TOOLS } from "@/lib/tools";
 
-export const metadata: Metadata = {
-  title: "Tools",
-  description: "20 free, private tools for stress relief: breathing, grounding, journaling, soundscapes and more.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "20 Free Stress Relief Tools",
+  description:
+    "Free, private stress relief tools you can use right now: breathing exercises, grounding, muscle relaxation, a worry sorter, journaling, mood tracking, calming soundscapes and more.",
+  path: "/tools",
+});
 
 export default function ToolsPage() {
   return (
     <main className="min-h-dvh">
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: `Stress relief tools · ${SITE_NAME}`,
+            url: absoluteUrl("/tools"),
+            mainEntity: {
+              "@type": "ItemList",
+              numberOfItems: TOOLS.length,
+              itemListElement: TOOLS.map((tool, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                name: tool.name,
+                url: absoluteUrl(`/tools/${tool.slug}`),
+              })),
+            },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+              { "@type": "ListItem", position: 2, name: "Tools", item: absoluteUrl("/tools") },
+            ],
+          },
+        ]}
+      />
       <div className="mx-auto max-w-6xl px-5 py-6 sm:px-8">
         <SiteHeader />
         <div className="py-12 text-center sm:py-16">

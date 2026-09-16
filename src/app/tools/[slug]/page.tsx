@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import JsonLd from "@/components/JsonLd";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ToolCard from "@/components/ToolCard";
@@ -9,6 +10,7 @@ import ListenButton from "@/components/ListenButton";
 import VoiceToggle, { VoiceProblemNotice } from "@/components/VoiceToggle";
 import { TOOL_COMPONENTS } from "@/components/tools";
 import { Panel } from "@/components/ui";
+import { SITE_NAME, SITE_URL, absoluteUrl, pageMetadata } from "@/lib/site";
 import { CATEGORIES, TOOLS, getTool, relatedTools } from "@/lib/tools";
 
 export const dynamicParams = false;
@@ -20,7 +22,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/tools/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const tool = getTool(slug);
-  return tool ? { title: tool.name, description: tool.description } : {};
+  return tool ? pageMetadata({ title: tool.name, description: tool.description, path: `/tools/${tool.slug}`, ownShareImage: true }) : {};
 }
 
 export default async function ToolPage({ params }: PageProps<"/tools/[slug]">) {
@@ -34,13 +36,39 @@ export default async function ToolPage({ params }: PageProps<"/tools/[slug]">) {
 
   return (
     <main className="min-h-dvh">
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: `${tool.name} · ${SITE_NAME}`,
+            description: tool.description,
+            url: absoluteUrl(`/tools/${tool.slug}`),
+            isAccessibleForFree: true,
+            inLanguage: "en",
+            isPartOf: { "@id": `${SITE_URL}/#website` },
+            about: { "@type": "Thing", name: category.label },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+              { "@type": "ListItem", position: 2, name: "Tools", item: absoluteUrl("/tools") },
+              { "@type": "ListItem", position: 3, name: tool.name, item: absoluteUrl(`/tools/${tool.slug}`) },
+            ],
+          },
+        ]}
+      />
       <div className="mx-auto max-w-5xl px-5 py-6 sm:px-8">
         <SiteHeader />
 
         <div className="pt-8 pb-8 sm:pt-12">
-          <Link href="/tools" className="mb-6 inline-flex items-center gap-1.5 text-sm text-mist/50 transition-colors hover:text-white">
-            <ArrowLeft className="size-4" /> All tools
-          </Link>
+          <nav aria-label="Breadcrumb" className="mb-6">
+            <Link href="/tools" className="inline-flex items-center gap-1.5 text-sm text-mist/50 transition-colors hover:text-white">
+              <ArrowLeft className="size-4" /> All tools
+            </Link>
+          </nav>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
             <span className={`flex size-12 shrink-0 items-center justify-center rounded-2xl ${category.iconBg}`}>
               <Icon className={`size-6 ${category.accent}`} aria-hidden />

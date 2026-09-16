@@ -24,6 +24,20 @@ home page). Users can switch it off with **Voice guide**, and every tool has a *
 
 Voice code: `src/lib/voice.ts` (client engine), `src/app/api/voice/route.ts` (TTS + cache).
 
+## SEO
+
+- `sitemap.xml`, `robots.txt` and `manifest.webmanifest` are generated from `src/app/sitemap.ts`,
+  `robots.ts` and `manifest.ts`. The sitemap lists every page and tool automatically.
+- Every page has a title, description, canonical URL, Open Graph and Twitter card tags
+  (`pageMetadata()` in `src/lib/site.ts`).
+- Social share images are generated at build time: `src/app/opengraph-image.tsx` for the site and
+  `src/app/tools/[slug]/opengraph-image.tsx` for each tool.
+- JSON-LD structured data: Organization + WebSite (all pages), FAQPage (home), CollectionPage +
+  ItemList (tools), WebPage + BreadcrumbList (tool and help pages).
+- Set these **build-time** variables on your host:
+  - `NEXT_PUBLIC_SITE_URL` — your real domain (defaults to `https://dropmystress.com`)
+  - `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION` — optional search console tokens
+
 ## Pages
 
 - `/` — vent box → burn animation → AI message → box breathing
