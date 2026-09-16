@@ -1,3 +1,7 @@
+# Older pnpm versions (used by some CI/hosting providers) require a packages list.
+packages:
+  - "."
+
 # None of these install scripts are needed to run the app, so they stay disabled.
 allowBuilds:
   '@google/genai': false
