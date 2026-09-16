@@ -4,12 +4,6 @@
 	"main": ".open-next/worker.js",
 	"compatibility_date": "2026-09-15",
 	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
-	// Cloudflare's build step runs `next build`; this adapts that output into a Worker and
-	// copies the prerendered pages into static assets right before `wrangler deploy`,
-	// so no dashboard changes are needed.
-	"build": {
-		"command": "node_modules/.bin/opennextjs-cloudflare build --skipNextBuild && node_modules/.bin/opennextjs-cloudflare populateCache local"
-	},
 	"assets": {
 		"directory": ".open-next/assets",
 		"binding": "ASSETS"
