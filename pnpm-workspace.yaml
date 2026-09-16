@@ -1,0 +1,5 @@
+# None of these install scripts are needed to run the app, so they stay disabled.
+allowBuilds:
+  '@google/genai': false
+  protobufjs: false
+  unrs-resolver: false

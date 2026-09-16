@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DropMyStress
 
-## Getting Started
+Type out what's weighing on you, watch it burn away, get a calm AI-written reply, and breathe.
 
-First, run the development server:
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+cp .env.example .env.local   # optional: add an OpenAI or Gemini key
+pnpm dev                     # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Without an API key the app still works and uses curated fallback messages.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Voice guide
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Every tool can read its guidance aloud (steps, questions, breathing cues, the AI message on the
+home page). Users can switch it off with **Voice guide**, and every tool has a **Listen** button.
 
-## Learn More
+- **With `OPENAI_API_KEY`**: natural, human-sounding voice from `gpt-4o-mini-tts` (voice `marin`,
+  calm "meditation guide" delivery). Each line is generated once, then cached in memory and in
+  `.voice-cache/`, so repeat plays cost nothing.
+- **Without a key**: the browser's built-in voice, picking the most natural one available.
 
-To learn more about Next.js, take a look at the following resources:
+Voice code: `src/lib/voice.ts` (client engine), `src/app/api/voice/route.ts` (TTS + cache).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `/` — vent box → burn animation → AI message → box breathing
+- `/tools` — searchable directory of 20 tools
+- `/tools/[slug]` — one page per tool (statically generated)
+- `/help` — crisis helplines and emergency numbers
 
-## Deploy on Vercel
+## The 20 tools
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Category | Tools |
+| --- | --- |
+| Breathe & body | Breathing patterns, Muscle relaxation, Body scan, Desk stretch break, Meditation timer |
+| Calm the mind | 5-4-3-2-1 grounding, Thought reframe, Worry sorter, Brain dump, Self-compassion break |
+| Write & release | Unsent letter, Gratitude jar, Journal prompts, Affirmation cards |
+| Play it out | Bubble wrap, Stress ball, Zen sand garden |
+| Check in | Mood tracker, Stress check (PSS-4), Soundscape mixer |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Structure
+
+```
+src/
+  app/
+    page.tsx                  home: vent → release → breathe
+    tools/page.tsx            tools directory
+    tools/[slug]/page.tsx     individual tool page
+    help/page.tsx             crisis resources
+    api/empathy/route.ts      POST { text } → { message, source }
+    api/voice/route.ts        GET ?text= → mp3 (OpenAI TTS, cached)
+  components/
+    tools/                    one component per tool + index.ts (slug → component)
+    tools/GuidedSession.tsx   shared player for timed, step-by-step exercises
+    BreathingBubble.tsx       animated bubble; takes any breathing pattern
+    ReleaseAnimation.tsx      words ignite and drift away as embers
+    ui.tsx                    Button, Panel, Chip, ProgressBar, input styles
+  hooks/
+    useLocalStorage.ts        per-browser persistence (SSR/hydration safe)
+    useStepTimer.ts           wall-clock step timer
+    useAmbientSound.ts        home page ocean toggle
+  lib/
+    tools.ts                  tool registry: names, categories, icons, keywords
+    audio.ts                  Web Audio bells, pops, and ambient channels
+```
+
+To add a tool: add an entry to `src/lib/tools.ts`, create its component in
+`src/components/tools/`, and register it in `src/components/tools/index.ts`.
+
+## Privacy
+
+Vent text is never stored or logged by this app. Tools that remember things (journal, mood
+tracker, gratitude jar, brain dump, worry actions, favourites) use `localStorage` only — nothing
+is sent to a server. When an AI key is set, it is sent to that
+provider to generate the reply, subject to their data policy.
