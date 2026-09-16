@@ -116,6 +116,164 @@ export function playThud(intensity = 1) {
   osc.stop(now + 0.3);
 }
 
+/**
+ * A buffer of sparse, tiny "grain" impulses with short decays. Filtered, it sounds
+ * like individual grains of sand or gravel scraping past each other.
+ */
+function createGrainBuffer(ctx: AudioContext, grainsPerSecond: number, grainMs: number, seconds = 3): AudioBuffer {
+  const length = Math.floor(ctx.sampleRate * seconds);
+  const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  const grainLength = Math.max(4, Math.floor((ctx.sampleRate * grainMs) / 1000));
+  const count = Math.floor(grainsPerSecond * seconds);
+  for (let g = 0; g < count; g++) {
+    const start = Math.floor(Math.random() * (length - grainLength));
+    const amplitude = 0.2 + Math.random() * 0.8;
+    for (let j = 0; j < grainLength; j++) {
+      data[start + j] += amplitude * Math.exp((-5 * j) / grainLength) * (Math.random() * 2 - 1);
+    }
+  }
+  return buffer;
+}
+
+export type RakeSound = {
+  /** How fast the rake is moving, in CSS pixels per second. 0 fades the sound out. */
+  setSpeed: (pixelsPerSecond: number) => void;
+  stop: () => void;
+};
+
+/** The scrape of a wooden rake drawn through fine sand. Loudness and texture follow the speed. */
+export function createRakeSound(): RakeSound | null {
+  const ctx = getAudioContext();
+  if (!ctx) return null;
+
+  const output = ctx.createGain();
+  output.gain.value = 0;
+  output.connect(ctx.destination);
+
+  const loop = (buffer: AudioBuffer) => {
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true;
+    source.loopStart = Math.random() * 0.5;
+    source.start(0, Math.random() * buffer.duration);
+    return source;
+  };
+
+  // Fine sand: dense, bright grains.
+  const fine = loop(createGrainBuffer(ctx, 1400, 2.5));
+  const fineBand = ctx.createBiquadFilter();
+  fineBand.type = "bandpass";
+  fineBand.frequency.value = 3200;
+  fineBand.Q.value = 0.6;
+  const fineGain = ctx.createGain();
+  fineGain.gain.value = 0.9;
+  fine.connect(fineBand).connect(fineGain).connect(output);
+
+  // Coarser grains: sparser, lower "crunch".
+  const coarse = loop(createGrainBuffer(ctx, 140, 9));
+  const coarseBand = ctx.createBiquadFilter();
+  coarseBand.type = "bandpass";
+  coarseBand.frequency.value = 900;
+  coarseBand.Q.value = 0.9;
+  const coarseGain = ctx.createGain();
+  coarseGain.gain.value = 0;
+  coarse.connect(coarseBand).connect(coarseGain).connect(output);
+
+  // A soft bed of hiss so the scrape never sounds like isolated clicks.
+  const hiss = loop(createNoiseBuffer(ctx, "pink", 3));
+  const hissBand = ctx.createBiquadFilter();
+  hissBand.type = "bandpass";
+  hissBand.frequency.value = 1800;
+  hissBand.Q.value = 0.5;
+  const hissGain = ctx.createGain();
+  hissGain.gain.value = 0.18;
+  hiss.connect(hissBand).connect(hissGain).connect(output);
+
+  const sources = [fine, coarse, hiss];
+
+  return {
+    setSpeed(pixelsPerSecond) {
+      const now = ctx.currentTime;
+      const intensity = Math.min(1, Math.sqrt(Math.max(0, pixelsPerSecond) / 1400));
+      const smoothing = intensity > 0 ? 0.03 : 0.08;
+      output.gain.setTargetAtTime(intensity * 0.55, now, smoothing);
+      coarseGain.gain.setTargetAtTime(Math.pow(intensity, 1.6) * 0.9, now, smoothing);
+      fineBand.frequency.setTargetAtTime(2400 + intensity * 2600, now, 0.05);
+      hissBand.frequency.setTargetAtTime(1200 + intensity * 1400, now, 0.05);
+      const rate = 0.8 + intensity * 0.45;
+      sources.forEach((s) => s.playbackRate.setTargetAtTime(rate, now, 0.05));
+    },
+    stop() {
+      const now = ctx.currentTime;
+      output.gain.setTargetAtTime(0, now, 0.05);
+      setTimeout(() => {
+        sources.forEach((s) => {
+          try {
+            s.stop();
+          } catch {}
+        });
+        output.disconnect();
+      }, 400);
+    },
+  };
+}
+
+/** A smooth stone settling into sand: a soft low thud with a small puff of grains. */
+export function playStoneDrop() {
+  const ctx = getAudioContext();
+  if (!ctx) return;
+  const now = ctx.currentTime;
+
+  const body = ctx.createOscillator();
+  body.type = "sine";
+  body.frequency.setValueAtTime(130, now);
+  body.frequency.exponentialRampToValueAtTime(58, now + 0.2);
+  const bodyEnv = ctx.createGain();
+  bodyEnv.gain.setValueAtTime(0.0001, now);
+  bodyEnv.gain.exponentialRampToValueAtTime(0.45, now + 0.008);
+  bodyEnv.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+  body.connect(bodyEnv).connect(ctx.destination);
+  body.start(now);
+  body.stop(now + 0.32);
+
+  const puff = ctx.createBufferSource();
+  puff.buffer = createGrainBuffer(ctx, 900, 3, 0.25);
+  const puffBand = ctx.createBiquadFilter();
+  puffBand.type = "bandpass";
+  puffBand.frequency.value = 2200;
+  puffBand.Q.value = 0.7;
+  const puffEnv = ctx.createGain();
+  puffEnv.gain.setValueAtTime(0.35, now + 0.01);
+  puffEnv.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
+  puff.connect(puffBand).connect(puffEnv).connect(ctx.destination);
+  puff.start(now + 0.01);
+}
+
+/** A long, gentle sweep of sand being smoothed flat. */
+export function playSandSweep() {
+  const ctx = getAudioContext();
+  if (!ctx) return;
+  const now = ctx.currentTime;
+  const duration = 1.1;
+
+  const grains = ctx.createBufferSource();
+  grains.buffer = createGrainBuffer(ctx, 1100, 3, duration + 0.1);
+  const band = ctx.createBiquadFilter();
+  band.type = "bandpass";
+  band.Q.value = 0.6;
+  band.frequency.setValueAtTime(900, now);
+  band.frequency.exponentialRampToValueAtTime(3800, now + duration * 0.6);
+  band.frequency.exponentialRampToValueAtTime(1600, now + duration);
+  const env = ctx.createGain();
+  env.gain.setValueAtTime(0.0001, now);
+  env.gain.exponentialRampToValueAtTime(0.4, now + duration * 0.35);
+  env.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+  grains.connect(band).connect(env).connect(ctx.destination);
+  grains.start(now);
+  grains.stop(now + duration + 0.05);
+}
+
 export type SoundChannelId = "rain" | "ocean" | "wind" | "fire" | "brown";
 
 export type SoundChannel = { output: GainNode; stop: () => void };

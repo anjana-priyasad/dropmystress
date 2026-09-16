@@ -1,11 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Circle, Eraser, Waypoints } from "lucide-react";
+import { Circle, Eraser, Volume2, VolumeX, Waypoints } from "lucide-react";
+import { createRakeSound, playSandSweep, playStoneDrop, type RakeSound } from "@/lib/audio";
 import { Button, Chip } from "@/components/ui";
 
 type Mode = "rake" | "stone";
 type Point = { x: number; y: number };
+
+/** If the rake hasn't moved for this long, it's resting in the sand and falls silent. */
+const REST_MS = 90;
 
 const SAND = "#b9a888";
 const GROOVE = "rgba(80, 64, 40, 0.28)";
@@ -67,7 +71,28 @@ function drawStone(ctx: CanvasRenderingContext2D, { x, y }: Point) {
 export default function SandGarden() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const lastPoint = useRef<Point | null>(null);
+  const lastMoveAt = useRef(0);
+  const rakeSound = useRef<RakeSound | null>(null);
+  const restTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [mode, setMode] = useState<Mode>("rake");
+  const [sound, setSound] = useState(true);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(restTimer.current);
+      rakeSound.current?.stop();
+    };
+  }, []);
+
+  function silenceRake() {
+    clearTimeout(restTimer.current);
+    rakeSound.current?.setSpeed(0);
+  }
+
+  function toggleSound() {
+    if (sound) silenceRake();
+    setSound(!sound);
+  }
 
   const context = () => canvasRef.current?.getContext("2d") ?? null;
 
@@ -78,6 +103,11 @@ export default function SandGarden() {
     const { width, height } = canvas.getBoundingClientRect();
     paintSand(ctx, width, height);
   }, []);
+
+  function smoothWithSound() {
+    if (sound) playSandSweep();
+    smooth();
+  }
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -110,10 +140,14 @@ export default function SandGarden() {
     const point = pointFrom(e);
     if (mode === "stone") {
       drawStone(ctx, point);
+      if (sound) playStoneDrop();
       return;
     }
     e.currentTarget.setPointerCapture(e.pointerId);
     lastPoint.current = point;
+    lastMoveAt.current = e.timeStamp;
+    // Created on the first stroke: browsers only allow audio after a user gesture.
+    if (sound) rakeSound.current ??= createRakeSound();
   }
 
   function onPointerMove(e: React.PointerEvent<HTMLCanvasElement>) {
@@ -134,10 +168,19 @@ export default function SandGarden() {
       drawGroove(ctx, from, to, { x: normal.x * k, y: normal.y * k });
     }
     lastPoint.current = to;
+
+    if (sound && rakeSound.current) {
+      const elapsedMs = Math.max(8, e.timeStamp - lastMoveAt.current);
+      rakeSound.current.setSpeed((length / elapsedMs) * 1000);
+      clearTimeout(restTimer.current);
+      restTimer.current = setTimeout(silenceRake, REST_MS);
+    }
+    lastMoveAt.current = e.timeStamp;
   }
 
   function onPointerUp() {
     lastPoint.current = null;
+    silenceRake();
   }
 
   return (
@@ -151,9 +194,14 @@ export default function SandGarden() {
             <Circle className="mr-1.5 inline size-4" /> Place stones
           </Chip>
         </div>
-        <Button variant="ghost" onClick={smooth}>
-          <Eraser className="size-4" /> Smooth the sand
-        </Button>
+        <div className="flex gap-1">
+          <Button variant="ghost" onClick={toggleSound} aria-pressed={sound}>
+            {sound ? <Volume2 className="size-4" /> : <VolumeX className="size-4" />} {sound ? "Sound on" : "Sound off"}
+          </Button>
+          <Button variant="ghost" onClick={smoothWithSound}>
+            <Eraser className="size-4" /> Smooth the sand
+          </Button>
+        </div>
       </div>
       <canvas
         ref={canvasRef}
