@@ -214,7 +214,7 @@ export default function GardenStage(props: Props) {
   return (
     <div
       ref={stageRef}
-      className={`relative aspect-[3/2] w-full touch-none overflow-hidden rounded-3xl shadow-inner shadow-black/40 select-none ${
+      className={`relative aspect-[3/2] w-full touch-none overflow-hidden rounded-3xl shadow-inner shadow-ink/13 select-none ${
         mode === "rake" ? "cursor-crosshair" : mode === "arrange" ? "cursor-default" : "cursor-copy"
       }`}
       onPointerDown={onStagePointerDown}

@@ -102,7 +102,7 @@ export default function StressCheck() {
               </p>
               <ListenButton text={speech} />
             </div>
-            <h3 className="font-serif text-2xl leading-snug text-white/90">{QUESTIONS[index].text}</h3>
+            <h3 className="font-serif text-2xl leading-snug text-ink/90">{QUESTIONS[index].text}</h3>
             <div className="flex flex-col gap-2" role="group" aria-label="Your answer">
               {OPTIONS.map((option, value) => (
                 <button
@@ -123,11 +123,11 @@ export default function StressCheck() {
           <motion.div key="result" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-6">
             <div className="text-center">
               <p className="text-sm text-mist/55">Your score</p>
-              <p className="text-6xl font-semibold text-white tabular-nums">
+              <p className="text-6xl font-semibold text-ink tabular-nums">
                 {score}
                 <span className="text-2xl font-normal text-mist/40"> / {MAX_SCORE}</span>
               </p>
-              <p className="mt-1 text-lg text-white/85">{result.label}</p>
+              <p className="mt-1 text-lg text-ink/85">{result.label}</p>
             </div>
 
             <div>
@@ -159,7 +159,7 @@ export default function StressCheck() {
             {previous && (
               <p className="text-center text-sm text-mist/50">
                 Last time ({new Date(previous.at).toLocaleDateString(undefined, { month: "short", day: "numeric" })}) you scored{" "}
-                <span className="text-white tabular-nums">{previous.score}</span>.
+                <span className="text-ink tabular-nums">{previous.score}</span>.
               </p>
             )}
 
@@ -179,7 +179,7 @@ export default function StressCheck() {
               <RotateCcw className="size-4" /> Take it again
             </Button>
 
-            <p className="rounded-2xl border border-mist/10 bg-night/40 p-4 text-xs leading-relaxed text-mist/50">
+            <p className="rounded-2xl border border-mist/10 bg-canvas/40 p-4 text-xs leading-relaxed text-mist/50">
               This uses the 4-item Perceived Stress Scale (Cohen, Kamarck &amp; Mermelstein, 1983). It measures how stressful
               your life has felt recently. It is not a diagnosis, and the bands above are only a rough guide. If stress is
               affecting your sleep, work, or relationships, a doctor or counsellor can help.

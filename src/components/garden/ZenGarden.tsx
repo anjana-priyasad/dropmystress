@@ -310,7 +310,7 @@ function GardenEditor({ initial }: { initial: Garden }) {
   const canShare = useSyncExternalStore(subscribeNothing, () => "share" in navigator, () => false);
 
   return (
-    <div ref={rootRef} className="flex flex-col gap-4 [&:fullscreen]:overflow-y-auto [&:fullscreen]:bg-night [&:fullscreen]:p-4 sm:[&:fullscreen]:p-8">
+    <div ref={rootRef} className="flex flex-col gap-4 [&:fullscreen]:overflow-y-auto [&:fullscreen]:bg-canvas [&:fullscreen]:p-4 sm:[&:fullscreen]:p-8">
       {/* Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap gap-2" role="group" aria-label="Garden tool">

@@ -11,7 +11,7 @@ export default function SoundToggle() {
       type="button"
       onClick={toggle}
       aria-pressed={playing}
-      className="inline-flex items-center gap-2 rounded-full border border-mist/10 bg-dusk/60 px-3 py-2 whitespace-nowrap sm:px-4 text-sm text-mist/60 backdrop-blur transition-colors hover:border-calm/30 hover:text-mist focus-visible:outline-2 focus-visible:outline-calm/60 aria-pressed:text-calm"
+      className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-ink/[0.04] h-9 px-2.5 py-2 whitespace-nowrap sm:px-4 text-sm text-mist/60 backdrop-blur transition-colors hover:border-calm/30 hover:text-mist focus-visible:outline-2 focus-visible:outline-calm/60 aria-pressed:text-calm"
     >
       {playing ? <Volume2 className="size-4" /> : <VolumeX className="size-4" />}
       <span className="hidden sm:inline">{playing ? "Ocean sounds on" : "Ocean sounds"}</span>

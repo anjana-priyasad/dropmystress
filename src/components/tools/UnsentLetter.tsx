@@ -129,7 +129,7 @@ export default function UnsentLetter() {
             transition={{ duration: 1 }}
             className="flex min-h-[45vh] flex-col items-center justify-center gap-6 text-center"
           >
-            <p className="max-w-lg font-serif text-2xl leading-snug text-white/90 italic sm:text-3xl">{CLOSING_LINES[method]}</p>
+            <p className="max-w-lg font-serif text-2xl leading-snug text-ink/90 italic sm:text-3xl">{CLOSING_LINES[method]}</p>
             <Button onClick={() => setStage("write")}>Write another letter</Button>
           </motion.div>
         )}

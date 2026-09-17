@@ -44,20 +44,21 @@ export default function ToolsPage() {
           },
         ]}
       />
-      <div className="mx-auto max-w-6xl px-5 py-6 sm:px-8">
+      <div className="mx-auto max-w-6xl px-4 pt-3 pb-6 sm:px-8">
         <SiteHeader />
-        <div className="py-12 text-center sm:py-16">
-          <h1 className="mb-3 font-serif text-4xl text-white/90 sm:text-5xl">Tools for calmer days</h1>
-          <p className="mx-auto max-w-xl text-mist/60">
+        <div className="py-14 text-center sm:py-20">
+          <p className="mb-4 text-xs tracking-[0.25em] text-calm uppercase">The toolkit</p>
+          <h1 className="mb-4 font-serif text-4xl tracking-tight text-ink sm:text-6xl">
+            Tools for <span className="text-gradient italic">calmer days</span>
+          </h1>
+          <p className="mx-auto max-w-xl text-lg text-mist/65">
             Twenty small, private tools to help you breathe, think clearly, let things out, and check in with yourself.
             No accounts. Nothing leaves your device.
           </p>
         </div>
         <ToolsDirectory />
       </div>
-      <div className="mt-16">
-        <SiteFooter />
-      </div>
+      <SiteFooter />
     </main>
   );
 }

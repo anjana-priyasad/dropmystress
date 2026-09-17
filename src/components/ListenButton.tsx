@@ -12,7 +12,7 @@ export default function ListenButton({ text, label = "Listen", className = "" }:
       type="button"
       onClick={() => (speaking ? stopSpeaking() : void speak(text, { force: true }))}
       aria-label={speaking ? "Stop reading aloud" : `${label}: read this aloud`}
-      className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border border-mist/12 px-3 py-1.5 text-sm text-mist/65 transition-colors hover:border-calm/40 hover:text-white focus-visible:outline-2 focus-visible:outline-calm/70 ${
+      className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border border-mist/12 px-3 py-1.5 text-sm text-mist/65 transition-colors hover:border-calm/40 hover:text-ink focus-visible:outline-2 focus-visible:outline-calm/70 ${
         speaking ? "border-calm/40 text-calm" : ""
       } ${className}`}
     >
