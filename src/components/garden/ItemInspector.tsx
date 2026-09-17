@@ -26,7 +26,7 @@ export default function ItemInspector({ item, onBeginChange, onChange, onFlip, o
       <div className="flex items-center gap-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={spriteUrl(item.kind)} alt="" className="size-10 object-contain" />
-        <span className="min-w-24 text-sm font-medium text-white/90">{sprite.name}</span>
+        <span className="min-w-24 text-sm font-medium text-ink/90">{sprite.name}</span>
       </div>
 
       <div className="grid flex-1 gap-3 sm:grid-cols-2">
@@ -73,7 +73,7 @@ export default function ItemInspector({ item, onBeginChange, onChange, onFlip, o
         <Button size="sm" variant="ghost" onClick={onDuplicate} aria-label="Duplicate">
           <Copy className="size-4" />
         </Button>
-        <Button size="sm" variant="ghost" onClick={onDelete} aria-label="Delete" className="hover:text-rose-300">
+        <Button size="sm" variant="ghost" onClick={onDelete} aria-label="Delete" className="hover:text-rose-500">
           <Trash2 className="size-4" />
         </Button>
         <Button size="sm" variant="ghost" onClick={onClose} aria-label="Done editing">

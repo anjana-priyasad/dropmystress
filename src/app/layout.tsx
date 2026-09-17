@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Lora } from "next/font/google";
+import CalmNow from "@/components/CalmNow";
 import JsonLd from "@/components/JsonLd";
+import SiteBackground from "@/components/SiteBackground";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -59,13 +61,13 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
-  appleWebApp: { capable: true, title: SITE_NAME, statusBarStyle: "black-translucent" },
+  appleWebApp: { capable: true, title: SITE_NAME, statusBarStyle: "default" },
   ...(Object.keys(verification).length > 0 && { verification }),
 };
 
 export const viewport: Viewport = {
-  themeColor: "#070b16",
-  colorScheme: "dark",
+  themeColor: "#e3f1ee",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -74,7 +76,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${lora.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-night font-sans text-mist">
+      <body className="relative min-h-full bg-canvas font-sans text-mist">
+        <SiteBackground />
         <JsonLd
           data={[
             {
@@ -98,6 +101,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           ]}
         />
         {children}
+        <CalmNow />
       </body>
     </html>
   );

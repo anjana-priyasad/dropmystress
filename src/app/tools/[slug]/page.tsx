@@ -7,6 +7,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ToolCard from "@/components/ToolCard";
 import ListenButton from "@/components/ListenButton";
+import { FavouriteButton, RecordToolVisit, ShareButton } from "@/components/ToolActivity";
 import VoiceToggle, { VoiceProblemNotice } from "@/components/VoiceToggle";
 import { TOOL_COMPONENTS } from "@/components/tools";
 import { Panel } from "@/components/ui";
@@ -60,27 +61,38 @@ export default async function ToolPage({ params }: PageProps<"/tools/[slug]">) {
           },
         ]}
       />
-      <div className="mx-auto max-w-5xl px-5 py-6 sm:px-8">
+      <RecordToolVisit slug={tool.slug} />
+      <div className="mx-auto max-w-5xl px-4 pt-3 pb-6 sm:px-8">
         <SiteHeader />
 
-        <div className="pt-8 pb-8 sm:pt-12">
-          <nav aria-label="Breadcrumb" className="mb-6">
-            <Link href="/tools" className="inline-flex items-center gap-1.5 text-sm text-mist/50 transition-colors hover:text-white">
-              <ArrowLeft className="size-4" /> All tools
-            </Link>
+        <div className="pt-10 pb-8 sm:pt-14">
+          <nav aria-label="Breadcrumb" className="mb-8">
+            <ol className="flex items-center gap-2 text-sm text-mist/50">
+              <li>
+                <Link href="/tools" className="inline-flex items-center gap-1.5 transition-colors hover:text-ink">
+                  <ArrowLeft className="size-4" /> All tools
+                </Link>
+              </li>
+              <li aria-hidden>/</li>
+              <li className={category.accent}>{category.label}</li>
+            </ol>
           </nav>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-            <span className={`flex size-12 shrink-0 items-center justify-center rounded-2xl ${category.iconBg}`}>
-              <Icon className={`size-6 ${category.accent}`} aria-hidden />
+          <div className="relative flex flex-col gap-5 sm:flex-row sm:items-start">
+            <span aria-hidden className={`pointer-events-none absolute -top-10 -left-10 size-48 rounded-full opacity-50 blur-3xl ${category.glow}`} />
+            <span className={`relative flex size-16 shrink-0 items-center justify-center rounded-3xl ring-1 ring-ink/10 ${category.iconBg}`}>
+              <Icon className={`size-7 ${category.accent}`} aria-hidden />
             </span>
-            <div>
-              <p className={`mb-1 text-xs tracking-widest uppercase ${category.accent} opacity-80`}>
-                {category.label} · {tool.duration}
+            <div className="relative">
+              <p className="mb-2 flex flex-wrap items-center gap-2 text-xs">
+                <span className={`rounded-full bg-ink/5 px-2.5 py-1 tracking-widest uppercase ${category.accent}`}>{category.label}</span>
+                <span className="rounded-full bg-ink/5 px-2.5 py-1 text-mist/60">{tool.duration}</span>
               </p>
-              <h1 className="mb-2 font-serif text-3xl text-white/90 sm:text-4xl">{tool.name}</h1>
-              <p className="max-w-2xl leading-relaxed text-mist/60">{tool.description}</p>
-              <div className="mt-4 flex flex-wrap items-center gap-2">
+              <h1 className="mb-3 font-serif text-4xl tracking-tight text-ink sm:text-5xl">{tool.name}</h1>
+              <p className="max-w-2xl text-lg leading-relaxed text-mist/70">{tool.description}</p>
+              <div className="mt-5 flex flex-wrap items-center gap-2">
+                <FavouriteButton slug={tool.slug} />
                 <ListenButton text={`${tool.name}. ${tool.description}`} label="Listen to intro" />
+                <ShareButton title={`${tool.name} · ${SITE_NAME}`} path={`/tools/${tool.slug}`} />
                 <VoiceToggle />
                 <VoiceProblemNotice />
               </div>
@@ -92,8 +104,8 @@ export default async function ToolPage({ params }: PageProps<"/tools/[slug]">) {
           <ToolComponent />
         </Panel>
 
-        <section aria-labelledby="related" className="py-16">
-          <h2 id="related" className="mb-5 font-serif text-2xl text-white/85">
+        <section aria-labelledby="related" className="pt-20">
+          <h2 id="related" className="mb-6 font-serif text-3xl text-ink">
             You might also like
           </h2>
           <ul className="grid gap-4 sm:grid-cols-3">

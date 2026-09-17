@@ -124,12 +124,12 @@ export default function MeditationTimer() {
           aria-hidden
           className="absolute inset-0 rounded-full"
           style={{
-            background: `conic-gradient(rgb(165 180 252 / 0.45) ${progress * 360}deg, transparent 0deg)`,
+            background: `conic-gradient(rgb(95 99 201 / 0.35) ${progress * 360}deg, transparent 0deg)`,
             mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px))",
           }}
         />
         <div className="relative text-center">
-          <p className="text-5xl font-light tabular-nums text-white/90" aria-live="off">
+          <p className="text-5xl font-light tabular-nums text-ink/90" aria-live="off">
             {status === "done" ? "0:00" : formatTime(remainingMs)}
           </p>
           <p className="mt-2 text-sm text-mist/50">

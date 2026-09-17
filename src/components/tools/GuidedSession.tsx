@@ -83,7 +83,7 @@ export default function GuidedSession({ steps, intro, outro, note }: Props) {
                 cy="100"
                 r={RING_RADIUS}
                 className={`fill-none transition-[stroke-dashoffset,stroke] duration-200 ease-linear ${
-                  isTense ? "stroke-orange-300" : "stroke-calm"
+                  isTense ? "stroke-orange-600" : "stroke-calm"
                 }`}
                 strokeWidth="4"
                 strokeLinecap="round"
@@ -96,7 +96,7 @@ export default function GuidedSession({ steps, intro, outro, note }: Props) {
               animate={{ scale: isTense ? 0.85 : 1.05 }}
               transition={{ duration: 1.5, ease: "easeInOut" }}
             />
-            <span className="relative text-5xl font-light tabular-nums text-white/90">
+            <span className="relative text-5xl font-light tabular-nums text-ink/90">
               {Math.ceil(timer.remainingMs / 1000)}
             </span>
           </div>
@@ -113,7 +113,7 @@ export default function GuidedSession({ steps, intro, outro, note }: Props) {
                 <p className="mb-2 text-xs tracking-widest text-mist/40 uppercase">
                   Step {timer.index + 1} of {steps.length}
                 </p>
-                <h3 className="mb-3 font-serif text-2xl text-white/90">{step.title}</h3>
+                <h3 className="mb-3 font-serif text-2xl text-ink/90">{step.title}</h3>
                 <p className="text-lg leading-relaxed text-mist/75">{step.instruction}</p>
               </motion.div>
             </AnimatePresence>
@@ -161,7 +161,7 @@ export default function GuidedSession({ steps, intro, outro, note }: Props) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <p className="font-serif text-2xl leading-snug text-white/90 italic">{outro}</p>
+          <p className="font-serif text-2xl leading-snug text-ink/90 italic">{outro}</p>
           <Button onClick={timer.start}>
             <RotateCcw className="size-4" /> Go again
           </Button>

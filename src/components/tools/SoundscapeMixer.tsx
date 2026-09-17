@@ -105,7 +105,7 @@ export default function SoundscapeMixer() {
                     <Icon className="size-5" />
                   </motion.span>
                 </button>
-                <span className={on ? "text-white/90" : "text-mist/60"}>{name}</span>
+                <span className={on ? "text-ink/90" : "text-mist/60"}>{name}</span>
                 <span className="ml-auto text-xs text-mist/40 tabular-nums">{Math.round(level * 100)}%</span>
               </div>
               <input
