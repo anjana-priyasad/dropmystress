@@ -15,9 +15,9 @@ export default function GardenPalette({ placingKind, onChoose }: Props) {
   const sprites = ALL_SPRITES.filter((s) => s.category === category);
 
   return (
-    <section aria-labelledby="palette-title" className="rounded-2xl border border-mist/10 bg-night/40 p-4">
+    <section aria-labelledby="palette-title" className="rounded-2xl border border-mist/10 bg-canvas/40 p-4">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <h3 id="palette-title" className="text-sm font-medium text-white/85">
+        <h3 id="palette-title" className="text-sm font-medium text-ink/85">
           Add to your garden
         </h3>
         <p className="text-xs text-mist/45">Pick an item, then tap the garden. On a computer you can also drag it in.</p>

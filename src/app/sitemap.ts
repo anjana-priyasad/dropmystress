@@ -14,5 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     })),
     { url: absoluteUrl("/help"), lastModified, changeFrequency: "monthly", priority: 0.6 },
+    { url: absoluteUrl("/privacy"), lastModified, changeFrequency: "yearly", priority: 0.3 },
   ];
 }

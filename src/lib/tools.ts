@@ -36,12 +36,15 @@ export type Tool = {
   keywords: string;
 };
 
-export const CATEGORIES: Record<ToolCategory, { label: string; accent: string; iconBg: string }> = {
-  breathe: { label: "Breathe & body", accent: "text-calm", iconBg: "bg-calm/10" },
-  mind: { label: "Calm the mind", accent: "text-lavender", iconBg: "bg-lavender/10" },
-  express: { label: "Write & release", accent: "text-rose-300", iconBg: "bg-rose-300/10" },
-  play: { label: "Play it out", accent: "text-amber-300", iconBg: "bg-amber-300/10" },
-  track: { label: "Check in", accent: "text-sky-300", iconBg: "bg-sky-300/10" },
+export const CATEGORIES: Record<
+  ToolCategory,
+  { label: string; accent: string; iconBg: string; glow: string; ring: string }
+> = {
+  breathe: { label: "Breathe & body", accent: "text-calm", iconBg: "bg-calm/12", glow: "bg-calm/25", ring: "hover:border-calm/35" },
+  mind: { label: "Calm the mind", accent: "text-lavender", iconBg: "bg-lavender/12", glow: "bg-lavender/25", ring: "hover:border-lavender/35" },
+  express: { label: "Write & release", accent: "text-rose-500", iconBg: "bg-rose-300/12", glow: "bg-rose-300/25", ring: "hover:border-rose-300/35" },
+  play: { label: "Play it out", accent: "text-amber-600", iconBg: "bg-amber-300/12", glow: "bg-amber-300/25", ring: "hover:border-amber-300/35" },
+  track: { label: "Check in", accent: "text-sky-600", iconBg: "bg-sky-300/12", glow: "bg-sky-300/25", ring: "hover:border-sky-300/35" },
 };
 
 export const TOOLS: Tool[] = [

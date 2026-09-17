@@ -56,7 +56,7 @@ function Slider({ id, label, value, onChange }: { id: string; label: string; val
   return (
     <div>
       <FieldLabel htmlFor={id}>
-        {label} <span className="ml-1 font-medium text-white tabular-nums">{value}%</span>
+        {label} <span className="ml-1 font-medium text-ink tabular-nums">{value}%</span>
       </FieldLabel>
       <input
         id={id}
@@ -168,7 +168,7 @@ export default function ThoughtReframe() {
                         selected ? "border-lavender/50 bg-lavender/10" : "border-mist/10 hover:border-mist/25"
                       }`}
                     >
-                      <span className="block font-medium text-white/90">{trap.name}</span>
+                      <span className="block font-medium text-ink/90">{trap.name}</span>
                       <span className="block text-sm text-mist/55">{trap.hint}</span>
                     </button>
                   );
@@ -207,7 +207,7 @@ export default function ThoughtReframe() {
 
           {step === 4 && (
             <>
-              <div className="rounded-2xl border border-mist/10 bg-night/40 p-4 text-sm text-mist/60">
+              <div className="rounded-2xl border border-mist/10 bg-canvas/40 p-4 text-sm text-mist/60">
                 <p className="mb-1 text-mist/80">Questions that can help:</p>
                 <ul className="list-inside list-disc space-y-0.5">
                   <li>What would I tell a friend who had this thought?</li>
@@ -233,7 +233,7 @@ export default function ThoughtReframe() {
 
           {finished && (
             <div className="flex flex-col gap-6">
-              <h3 className="text-center font-serif text-2xl text-white/90">Your reframe</h3>
+              <h3 className="text-center font-serif text-2xl text-ink/90">Your reframe</h3>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-2xl border border-mist/10 p-5">
                   <p className="mb-2 text-xs tracking-widest text-mist/40 uppercase">Original thought</p>
@@ -241,12 +241,12 @@ export default function ThoughtReframe() {
                 </div>
                 <div className="rounded-2xl border border-calm/30 bg-calm/5 p-5">
                   <p className="mb-2 text-xs tracking-widest text-calm/70 uppercase">Balanced thought</p>
-                  <p className="text-white/90">{record.balanced}</p>
+                  <p className="text-ink/90">{record.balanced}</p>
                 </div>
               </div>
               <p className="text-center text-mist/70">
                 Belief in the original thought:{" "}
-                <span className="tabular-nums text-white">{record.beliefBefore}%</span> →{" "}
+                <span className="tabular-nums text-ink">{record.beliefBefore}%</span> →{" "}
                 <span className="tabular-nums text-calm">{record.beliefAfter}%</span>
                 {record.beliefAfter < record.beliefBefore && " — that's real progress."}
               </p>

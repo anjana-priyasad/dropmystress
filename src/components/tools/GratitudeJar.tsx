@@ -107,7 +107,7 @@ export default function GratitudeJar() {
                 type="button"
                 onClick={() => setPulled(null)}
                 aria-label="Put the note back"
-                className="absolute top-2 right-2 rounded-full p-1 text-slate-600 hover:bg-black/5"
+                className="absolute top-2 right-2 rounded-full p-1 text-slate-600 hover:bg-ink/5"
               >
                 <X className="size-4" />
               </button>
@@ -163,7 +163,7 @@ export default function GratitudeJar() {
               />
             ))}
           </AnimatePresence>
-          <div className="pointer-events-none absolute inset-y-6 left-4 w-3 rounded-full bg-white/10 blur-[2px]" />
+          <div className="pointer-events-none absolute inset-y-6 left-4 w-3 rounded-full bg-ink/10 blur-[2px]" />
         </div>
       </div>
     </div>

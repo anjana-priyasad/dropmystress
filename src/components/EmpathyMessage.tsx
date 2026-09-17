@@ -12,7 +12,7 @@ export default function EmpathyMessage({ message }: { message: string | null }) 
             initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="max-w-xl text-center font-serif text-2xl leading-snug text-white/90 italic sm:text-3xl"
+            className="max-w-xl text-center font-serif text-2xl leading-snug text-ink/90 italic sm:text-3xl"
           >
             {message}
           </motion.p>

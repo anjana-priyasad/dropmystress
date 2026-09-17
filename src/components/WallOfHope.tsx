@@ -22,10 +22,11 @@ const QUOTES = [
 
 export default function WallOfHope() {
   return (
-    <section aria-labelledby="wall-of-hope" className="mx-auto w-full max-w-5xl px-6 py-24">
+    <section aria-labelledby="wall-of-hope" className="mx-auto w-full max-w-6xl px-4 pt-24 sm:px-6">
+      <p className="mb-3 text-center text-xs tracking-[0.25em] text-calm uppercase">Words to hold on to</p>
       <motion.h2
         id="wall-of-hope"
-        className="mb-12 text-center font-serif text-3xl text-white/85"
+        className="mb-10 text-center font-serif text-3xl text-ink sm:text-4xl"
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
@@ -38,16 +39,17 @@ export default function WallOfHope() {
         {QUOTES.map((quote, i) => (
           <motion.li
             key={quote.author}
-            className="flex flex-col justify-between gap-6 rounded-2xl border border-mist/8 bg-dusk/50 p-6 transition-colors hover:border-lavender/25"
+            className="glass relative flex flex-col justify-between gap-6 overflow-hidden rounded-3xl p-7 transition-colors hover:border-lavender/30"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, delay: i * 0.08, ease: "easeOut" }}
           >
-            <blockquote className="font-serif text-lg leading-relaxed text-mist/85 italic">
+            <span aria-hidden className="absolute -top-4 left-4 font-serif text-8xl text-lavender/10">&ldquo;</span>
+            <blockquote className="relative font-serif text-lg leading-relaxed text-ink/85 italic">
               {quote.text}
             </blockquote>
-            <p className="text-sm text-lavender/60">— {quote.author}</p>
+            <p className="flex items-center gap-2 text-sm text-lavender/75"><span aria-hidden className="h-px w-6 bg-lavender/40" />{quote.author}</p>
           </motion.li>
         ))}
       </ul>

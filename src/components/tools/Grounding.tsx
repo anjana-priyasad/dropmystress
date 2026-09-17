@@ -64,7 +64,7 @@ export default function Grounding() {
             <div className="text-center">
               <sense.icon className="mx-auto mb-3 size-6 text-calm/60" aria-hidden />
               <p className="mb-2 font-serif text-6xl text-calm/90">{sense.count}</p>
-              <h3 className="font-serif text-2xl text-white/90">
+              <h3 className="font-serif text-2xl text-ink/90">
                 {sense.count === 1 ? "thing" : "things"} you can {sense.verb}
               </h3>
               <p className="mt-2 text-mist/55">{sense.hint}</p>
@@ -104,7 +104,7 @@ export default function Grounding() {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center gap-6 text-center"
           >
-            <p className="font-serif text-3xl text-white/90 italic">You&apos;re here. Right now. And right now, you&apos;re okay.</p>
+            <p className="font-serif text-3xl text-ink/90 italic">You&apos;re here. Right now. And right now, you&apos;re okay.</p>
             <p className="text-mist/60">Take one slow breath before you go back to your day.</p>
             <Button onClick={restart}>
               <RotateCcw className="size-4" /> Start again

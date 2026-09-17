@@ -104,7 +104,7 @@ export default function BreathingBubble({ phases = BOX_BREATHING }: { phases?: B
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.4 }}
-              className="font-serif text-xl text-white/90 italic"
+              className="font-serif text-xl text-ink/90 italic"
             >
               {running ? phase.label : "Tap to breathe"}
             </motion.span>

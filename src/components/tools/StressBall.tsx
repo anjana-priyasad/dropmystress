@@ -49,7 +49,7 @@ export default function StressBall() {
     <div className="flex flex-col items-center gap-6">
       <p className="text-center text-mist/60">Press and hold to squeeze. Drag and fling it if you need to.</p>
 
-      <div className="relative flex h-80 w-full items-center justify-center overflow-hidden rounded-3xl border border-mist/10 bg-night/40">
+      <div className="relative flex h-80 w-full items-center justify-center overflow-hidden rounded-3xl border border-mist/10 bg-canvas/40">
         <motion.div
           drag
           dragSnapToOrigin
@@ -75,7 +75,7 @@ export default function StressBall() {
           }}
           className={`size-44 cursor-grab touch-none rounded-full bg-gradient-to-br ${COLORS[colorIndex].ball} shadow-[inset_-18px_-22px_40px_rgba(0,0,0,0.35),inset_12px_14px_30px_rgba(255,255,255,0.35),0_30px_60px_-20px_rgba(0,0,0,0.6)] outline-none focus-visible:ring-4 focus-visible:ring-calm/40 active:cursor-grabbing`}
         />
-        <div aria-hidden className="pointer-events-none absolute bottom-10 h-4 w-32 rounded-full bg-black/40 blur-md" />
+        <div aria-hidden className="pointer-events-none absolute bottom-10 h-4 w-32 rounded-full bg-ink/13 blur-md" />
       </div>
 
       <div className="flex flex-wrap justify-center gap-2" role="group" aria-label="Ball colour">
