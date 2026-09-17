@@ -22,7 +22,7 @@ const NO_ITEMS: Item[] = [];
 const BUCKETS: { id: Exclude<Bucket, "inbox">; label: string; hint: string; icon: LucideIcon; tone: string }[] = [
   { id: "today", label: "Today", hint: "Only what truly needs you today. Try for 3 or fewer.", icon: Sun, tone: "text-calm" },
   { id: "later", label: "Later", hint: "Important, but it can wait.", icon: Clock, tone: "text-lavender" },
-  { id: "drop", label: "Not mine to carry", hint: "Out of your control, or not worth your energy.", icon: Feather, tone: "text-rose-300" },
+  { id: "drop", label: "Not mine to carry", hint: "Out of your control, or not worth your energy.", icon: Feather, tone: "text-rose-500" },
 ];
 
 export default function BrainDump() {
@@ -77,7 +77,7 @@ export default function BrainDump() {
             className="mx-auto w-full max-w-2xl"
             aria-labelledby="to-sort"
           >
-            <h3 id="to-sort" className="mb-3 font-serif text-xl text-white/85">
+            <h3 id="to-sort" className="mb-3 font-serif text-xl text-ink/85">
               Sort each one <span className="text-base text-mist/45">({inbox.length} left)</span>
             </h3>
             <ul className="flex flex-col gap-2">
@@ -87,9 +87,9 @@ export default function BrainDump() {
                     key={item.id}
                     layout
                     exit={{ opacity: 0, x: 30 }}
-                    className="flex flex-col gap-2 rounded-2xl border border-mist/10 bg-night/40 p-3 sm:flex-row sm:items-center"
+                    className="flex flex-col gap-2 rounded-2xl border border-mist/10 bg-canvas/40 p-3 sm:flex-row sm:items-center"
                   >
-                    <span className="flex-1 text-white/90">{item.text}</span>
+                    <span className="flex-1 text-ink/90">{item.text}</span>
                     <div className="flex flex-wrap gap-1.5">
                       {BUCKETS.map((b) => (
                         <Button key={b.id} size="sm" onClick={() => move(item.id, b.id)}>
@@ -110,13 +110,13 @@ export default function BrainDump() {
           const bucketItems = items.filter((i) => i.bucket === b.id);
           return (
             <section key={b.id} aria-labelledby={`bucket-${b.id}`} className="flex flex-col rounded-2xl border border-mist/10 p-4">
-              <h3 id={`bucket-${b.id}`} className="flex items-center gap-2 font-medium text-white/90">
+              <h3 id={`bucket-${b.id}`} className="flex items-center gap-2 font-medium text-ink/90">
                 <b.icon className={`size-4 ${b.tone}`} /> {b.label}
                 <span className="ml-auto text-sm text-mist/40 tabular-nums">{bucketItems.length}</span>
               </h3>
               <p className="mb-3 text-xs text-mist/45">{b.hint}</p>
               {b.id === "today" && bucketItems.length > 3 && (
-                <p className="mb-2 rounded-xl bg-amber-300/10 px-3 py-2 text-xs text-amber-200/80">
+                <p className="mb-2 rounded-xl bg-amber-300/10 px-3 py-2 text-xs text-amber-700/80">
                   That&apos;s a lot for one day. Could anything move to Later?
                 </p>
               )}
@@ -127,14 +127,14 @@ export default function BrainDump() {
                   {bucketItems.map((item) => (
                     <li key={item.id} className="group flex items-center gap-2 rounded-xl px-2 py-1.5 hover:bg-mist/5">
                       {b.id === "drop" ? (
-                        <Feather className="size-3.5 shrink-0 text-rose-300/50" aria-hidden />
+                        <Feather className="size-3.5 shrink-0 text-rose-500/50" aria-hidden />
                       ) : (
                         <button
                           type="button"
                           onClick={() => toggle(item.id)}
                           aria-label={item.done ? `Mark "${item.text}" not done` : `Mark "${item.text}" done`}
                           className={`flex size-4 shrink-0 items-center justify-center rounded border ${
-                            item.done ? "border-calm bg-calm text-night" : "border-mist/30"
+                            item.done ? "border-calm bg-calm text-canvas" : "border-mist/30"
                           }`}
                         >
                           {item.done && <Check className="size-3" />}

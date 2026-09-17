@@ -88,8 +88,8 @@ export default function WorrySorter() {
 
           {stage === "ask" && (
             <motion.div key="ask" {...fade} className="flex flex-col items-center gap-6 text-center">
-              <p className="max-w-lg rounded-2xl border border-mist/10 bg-night/40 px-5 py-3 text-mist/70 italic">“{worry}”</p>
-              <h3 className="font-serif text-2xl text-white/90">Is there anything you can do about this?</h3>
+              <p className="max-w-lg rounded-2xl border border-mist/10 bg-canvas/40 px-5 py-3 text-mist/70 italic">“{worry}”</p>
+              <h3 className="font-serif text-2xl text-ink/90">Is there anything you can do about this?</h3>
               <div className="flex flex-wrap justify-center gap-2">
                 <Button variant="primary" onClick={() => setStage("plan")}>
                   <Check className="size-4" /> Yes, something
@@ -106,7 +106,7 @@ export default function WorrySorter() {
 
           {stage === "partly" && (
             <motion.div key="partly" {...fade} className="flex flex-col items-center gap-6 text-center">
-              <h3 className="font-serif text-2xl text-white/90">Split it in two</h3>
+              <h3 className="font-serif text-2xl text-ink/90">Split it in two</h3>
               <p className="max-w-lg text-mist/70">
                 Most worries have a piece you can influence and a piece you can&apos;t. Focus only on the part that&apos;s
                 yours — even if it&apos;s tiny, like asking a question or preparing a little.
@@ -130,7 +130,7 @@ export default function WorrySorter() {
                 if (step.trim()) savePlan();
               }}
             >
-              <h3 className="font-serif text-2xl text-white/90">What&apos;s one small step you could take?</h3>
+              <h3 className="font-serif text-2xl text-ink/90">What&apos;s one small step you could take?</h3>
               <p className="text-mist/60">Make it small enough to do in the next day or two.</p>
               <input
                 autoFocus
@@ -152,13 +152,13 @@ export default function WorrySorter() {
                 initial={{ y: 0, opacity: 1, rotate: 0 }}
                 animate={{ y: -120, opacity: 0, rotate: -12 }}
                 transition={{ duration: 2.2, ease: "easeIn" }}
-                className="rounded-2xl border border-mist/15 bg-night/60 px-5 py-3 text-mist/70 italic"
+                className="rounded-2xl border border-mist/15 bg-canvas/60 px-5 py-3 text-mist/70 italic"
                 aria-hidden
               >
                 “{worry}”
               </motion.div>
               <Feather className="size-7 text-calm/70" aria-hidden />
-              <h3 className="font-serif text-2xl text-white/90">Then it&apos;s not yours to carry.</h3>
+              <h3 className="font-serif text-2xl text-ink/90">Then it&apos;s not yours to carry.</h3>
               <p className="max-w-md text-mist/65">
                 Worrying about it won&apos;t change it. When it comes back, and it might, notice it, and gently remind
                 yourself: I already set this down.
@@ -170,7 +170,7 @@ export default function WorrySorter() {
           {stage === "planned" && (
             <motion.div key="planned" {...fade} className="flex flex-col items-center gap-5 text-center">
               <ListChecks className="size-7 text-calm/70" aria-hidden />
-              <h3 className="font-serif text-2xl text-white/90">You have a plan.</h3>
+              <h3 className="font-serif text-2xl text-ink/90">You have a plan.</h3>
               <p className="max-w-md text-mist/65">
                 Now that it&apos;s written down, you don&apos;t need to keep rehearsing it in your head.
               </p>
@@ -182,7 +182,7 @@ export default function WorrySorter() {
 
       <section aria-labelledby="action-list" className="border-t border-mist/10 pt-8">
         <div className="mb-4 flex items-baseline justify-between">
-          <h3 id="action-list" className="font-serif text-xl text-white/85">
+          <h3 id="action-list" className="font-serif text-xl text-ink/85">
             My action steps
           </h3>
           <span className="text-sm text-mist/45 tabular-nums">{released} {released === 1 ? "worry" : "worries"} let go</span>
@@ -201,7 +201,7 @@ export default function WorrySorter() {
                   className="mt-1 size-4 accent-calm"
                 />
                 <div className="min-w-0 flex-1">
-                  <p className={a.done ? "text-mist/40 line-through" : "text-white/90"}>{a.step}</p>
+                  <p className={a.done ? "text-mist/40 line-through" : "text-ink/90"}>{a.step}</p>
                   <p className="truncate text-xs text-mist/40">For: {a.worry}</p>
                 </div>
                 <button

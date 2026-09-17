@@ -75,7 +75,7 @@ export default function JournalPrompts() {
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
-              className="font-serif text-2xl leading-snug text-white/90"
+              className="font-serif text-2xl leading-snug text-ink/90"
             >
               {prompt}
             </motion.h3>
@@ -93,7 +93,7 @@ export default function JournalPrompts() {
           aria-label={prompt}
           rows={10}
           placeholder="Start anywhere. There's no wrong answer."
-          className="w-full resize-y rounded-2xl border border-mist/12 bg-night/60 p-5 font-serif text-lg leading-relaxed text-slate-100 outline-none placeholder:text-mist/30 focus:border-calm/40"
+          className="w-full resize-y rounded-2xl border border-mist/12 bg-canvas/60 p-5 font-serif text-lg leading-relaxed text-ink outline-none placeholder:text-mist/30 focus:border-calm/40"
         />
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="flex items-center gap-1.5 text-xs text-mist/40">
@@ -115,7 +115,7 @@ export default function JournalPrompts() {
       </div>
 
       <section aria-labelledby="past-entries" className="border-t border-mist/10 pt-8">
-        <h3 id="past-entries" className="mb-4 font-serif text-xl text-white/85">
+        <h3 id="past-entries" className="mb-4 font-serif text-xl text-ink/85">
           Past entries
         </h3>
         {entries.length === 0 ? (
@@ -135,7 +135,7 @@ export default function JournalPrompts() {
                     >
                       <ChevronDown className={`size-4 shrink-0 text-mist/40 transition-transform ${open ? "rotate-180" : ""}`} />
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-white/85">{entry.prompt}</span>
+                        <span className="block truncate text-ink/85">{entry.prompt}</span>
                         <span className="block text-xs text-mist/40">{formatDate(entry.at)}</span>
                       </span>
                     </button>

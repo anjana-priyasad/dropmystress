@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowDown, RotateCcw } from "lucide-react";
+import { ArrowDown, EyeOff, Lock, RotateCcw, Sparkles } from "lucide-react";
 import VentBox from "@/components/VentBox";
 import ReleaseAnimation from "@/components/ReleaseAnimation";
 import EmpathyMessage from "@/components/EmpathyMessage";
@@ -66,29 +66,55 @@ export default function VentExperience() {
   }
 
   return (
-    <section className="relative flex min-h-dvh flex-col px-5 py-6 sm:px-8">
-      <SiteHeader>
-        <VoiceToggle />
-        <SoundToggle />
-      </SiteHeader>
+    <section className="relative flex min-h-dvh flex-col px-4 pt-3 pb-6 sm:px-8">
+      <div className="mx-auto w-full max-w-6xl">
+        <SiteHeader>
+          <VoiceToggle />
+          <SoundToggle />
+        </SiteHeader>
+      </div>
 
-      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center py-10">
+      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center py-10 sm:py-14">
         <AnimatePresence mode="wait">
           {phase === "vent" && (
             <motion.div
               key="vent"
-              className="flex flex-col gap-8"
+              className="flex flex-col gap-9"
               exit={{ opacity: 0, transition: { duration: 0.01 } }}
             >
-              <motion.h1
-                className="text-center font-serif text-3xl text-white/85 sm:text-4xl"
-                initial={{ opacity: 0, y: 8 }}
+              <motion.div
+                className="flex flex-col items-center gap-5 text-center"
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.9, ease: "easeOut" }}
               >
-                Put it down here.
-              </motion.h1>
+                <span className="glass inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs text-mist/80">
+                  <span className="relative flex size-2">
+                    <span className="ripple absolute inset-0 rounded-full bg-calm" />
+                    <span className="relative size-2 rounded-full bg-calm" />
+                  </span>
+                  Anonymous · no sign-up · nothing saved
+                </span>
+                <h1 className="font-serif text-[2.6rem] leading-[1.05] tracking-tight text-ink sm:text-6xl">
+                  Drop your stress <br className="hidden sm:block" />
+                  <span className="text-gradient italic">right here.</span>
+                </h1>
+                <p className="max-w-xl text-base leading-relaxed text-mist/70 sm:text-lg">
+                  Type out whatever&apos;s weighing on you. Watch it burn away, get a kind word back, and breathe.
+                </p>
+              </motion.div>
               <VentBox value={text} onChange={setText} onRelease={handleRelease} />
+              <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-mist/55">
+                {[
+                  { icon: EyeOff, text: "Never stored" },
+                  { icon: Lock, text: "No account needed" },
+                  { icon: Sparkles, text: "A calm reply, just for you" },
+                ].map(({ icon: Icon, text: label }) => (
+                  <li key={label} className="inline-flex items-center gap-1.5">
+                    <Icon className="size-3.5 text-calm/80" aria-hidden /> {label}
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           )}
 
@@ -99,7 +125,7 @@ export default function VentExperience() {
               exit={{ opacity: 0, transition: { duration: 0.5 } }}
             >
               <motion.p
-                className="text-center font-serif text-3xl text-white/60 italic sm:text-4xl"
+                className="text-center font-serif text-3xl text-ink/60 italic sm:text-4xl"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: [0, 1, 1, 0] }}
                 transition={{ duration: 3, times: [0, 0.2, 0.7, 1] }}
@@ -135,7 +161,7 @@ export default function VentExperience() {
                   <button
                     type="button"
                     onClick={ventAgain}
-                    className="inline-flex items-center gap-2 rounded-full border border-mist/10 px-4 py-2 text-mist/60 transition-colors hover:border-mist/25 hover:text-mist focus-visible:outline-2 focus-visible:outline-calm/60"
+                    className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-mist/80 transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-calm/60"
                   >
                     <RotateCcw className="size-4" />
                     Let go of something else

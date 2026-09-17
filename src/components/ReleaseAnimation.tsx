@@ -33,17 +33,17 @@ export default function ReleaseAnimation({ scene, onComplete }: Props) {
       {/* The box itself: glows warm from below, then its frame fades away. */}
       <motion.div
         className={`${VENT_SURFACE_CLASS} relative overflow-visible`}
-        initial={{ borderColor: "rgba(203,213,225,0.12)" }}
+        initial={{ borderColor: "rgba(29,42,58,0.1)" }}
         animate={{
           borderColor: [
-            "rgba(203,213,225,0.12)",
+            "rgba(29,42,58,0.1)",
             "rgba(251,146,60,0.45)",
             "rgba(251,146,60,0)",
           ],
           backgroundColor: [
-            "rgba(14,21,40,0.6)",
-            "rgba(40,20,10,0.5)",
-            "rgba(14,21,40,0)",
+            "rgba(255,255,255,0.8)",
+            "rgba(255,237,213,0.9)",
+            "rgba(255,255,255,0)",
           ],
         }}
         transition={{ duration: TOTAL_SECONDS, times: [0, 0.35, 1], ease: "easeInOut" }}

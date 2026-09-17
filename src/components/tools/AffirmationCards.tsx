@@ -91,10 +91,10 @@ export default function AffirmationCards() {
 
       <div className="relative h-72 w-full">
         {/* A hint of the rest of the deck. */}
-        <div aria-hidden className="absolute inset-x-6 top-3 bottom-[-0.75rem] rounded-3xl border border-mist/8 bg-dusk/40" />
+        <div aria-hidden className="absolute inset-x-6 top-3 bottom-[-0.75rem] rounded-3xl border border-mist/8 bg-surface/40" />
         <AnimatePresence mode="popLayout" custom={direction} initial={false}>
           {current === undefined ? (
-            <motion.div key="empty" className="absolute inset-0 flex items-center justify-center rounded-3xl border border-mist/10 bg-dusk p-8 text-center text-mist/50">
+            <motion.div key="empty" className="absolute inset-0 flex items-center justify-center rounded-3xl border border-mist/10 bg-surface p-8 text-center text-mist/50">
               Tap “Save” on any card to keep it in your favourites.
             </motion.div>
           ) : (
@@ -109,9 +109,9 @@ export default function AffirmationCards() {
               animate={{ opacity: 1, x: 0, rotate: 0 }}
               exit={{ opacity: 0, x: direction * -120, rotate: direction * -6 }}
               transition={{ type: "spring", damping: 22, stiffness: 180 }}
-              className="absolute inset-0 flex cursor-grab items-center justify-center rounded-3xl border border-lavender/20 bg-gradient-to-br from-dusk via-dusk to-lavender/10 p-8 text-center shadow-2xl shadow-black/40 active:cursor-grabbing"
+              className="absolute inset-0 flex cursor-grab items-center justify-center rounded-3xl border border-lavender/20 bg-gradient-to-br from-surface via-surface to-lavender/10 p-8 text-center shadow-2xl shadow-ink/13 active:cursor-grabbing"
             >
-              <p className="font-serif text-2xl leading-snug text-white/90 sm:text-3xl" aria-live="polite">
+              <p className="font-serif text-2xl leading-snug text-ink/90 sm:text-3xl" aria-live="polite">
                 {AFFIRMATIONS[current]}
               </p>
             </motion.div>

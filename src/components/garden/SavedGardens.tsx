@@ -46,10 +46,10 @@ export default function SavedGardens({ garden, onLoad }: Props) {
   }
 
   return (
-    <section aria-labelledby="gallery-title" className="rounded-2xl border border-mist/10 bg-night/40 p-4">
+    <section aria-labelledby="gallery-title" className="rounded-2xl border border-mist/10 bg-canvas/40 p-4">
       <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h3 id="gallery-title" className="text-sm font-medium text-white/85">
+          <h3 id="gallery-title" className="text-sm font-medium text-ink/85">
             My gardens
           </h3>
           <p className="text-xs text-mist/45">Your current garden saves automatically. Keep versions you love here — only in this browser.</p>
@@ -77,12 +77,12 @@ export default function SavedGardens({ garden, onLoad }: Props) {
       ) : (
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {saved.map((entry) => (
-            <li key={entry.id} className="overflow-hidden rounded-xl border border-mist/10 bg-dusk/60">
+            <li key={entry.id} className="overflow-hidden rounded-xl border border-mist/10 bg-surface/60">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={entry.thumbnail} alt={`Thumbnail of ${entry.name}`} className="aspect-[3/2] w-full object-cover" />
               <div className="flex items-center gap-1 p-2">
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-xs text-white/85">{entry.name}</p>
+                  <p className="truncate text-xs text-ink/85">{entry.name}</p>
                   <p className="text-[10px] text-mist/40">{new Date(entry.savedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</p>
                 </div>
                 <Button size="sm" variant="ghost" aria-label={`Open ${entry.name}`} onClick={() => onLoad(entry.garden)}>

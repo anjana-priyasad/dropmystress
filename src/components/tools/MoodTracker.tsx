@@ -83,7 +83,7 @@ export default function MoodTracker() {
     <div className="flex flex-col gap-10">
       {/* Check-in */}
       <section aria-labelledby="checkin" className="mx-auto flex w-full max-w-2xl flex-col gap-5">
-        <h3 id="checkin" className="text-center font-serif text-2xl text-white/90">
+        <h3 id="checkin" className="text-center font-serif text-2xl text-ink/90">
           How are you feeling right now?
         </h3>
         <ListenButton text={CHECKIN_SPEECH} className="self-center" />
@@ -135,8 +135,8 @@ export default function MoodTracker() {
       </section>
 
       {/* Last 14 days */}
-      <section aria-labelledby="mood-chart" className="rounded-3xl border border-mist/10 bg-night/40 p-5 sm:p-6">
-        <h3 id="mood-chart" className="font-medium text-white/90">
+      <section aria-labelledby="mood-chart" className="rounded-3xl border border-mist/10 bg-canvas/40 p-5 sm:p-6">
+        <h3 id="mood-chart" className="font-medium text-ink/90">
           Average mood, last {DAYS_SHOWN} days
         </h3>
         <p className="mb-6 text-sm text-mist/50">Hover or tap a day for details.</p>
@@ -183,11 +183,11 @@ export default function MoodTracker() {
                     )}
                     {isHovered && (
                       <span
-                        className={`pointer-events-none absolute bottom-full z-10 mb-2 w-max rounded-xl border border-mist/15 bg-dusk px-3 py-2 text-left shadow-xl ${
+                        className={`pointer-events-none absolute bottom-full z-10 mb-2 w-max rounded-xl border border-mist/15 bg-surface px-3 py-2 text-left shadow-xl ${
                           i < 3 ? "left-0" : i > days.length - 4 ? "right-0" : "left-1/2 -translate-x-1/2"
                         }`}
                       >
-                        <span className="block text-sm font-semibold text-white">
+                        <span className="block text-sm font-semibold text-ink">
                           {day.avg ? `${moodLabel(day.avg)} · ${day.avg.toFixed(1)}` : "No check-ins"}
                         </span>
                         <span className="block text-xs text-mist/55">
@@ -228,7 +228,7 @@ export default function MoodTracker() {
 
       {/* Recent check-ins (also serves as the chart's table view) */}
       <section aria-labelledby="recent-checkins">
-        <h3 id="recent-checkins" className="mb-3 font-serif text-xl text-white/85">
+        <h3 id="recent-checkins" className="mb-3 font-serif text-xl text-ink/85">
           Recent check-ins
         </h3>
         {entries.length === 0 ? (
@@ -242,7 +242,7 @@ export default function MoodTracker() {
                   <span className="text-xl" aria-hidden>
                     {m.emoji}
                   </span>
-                  <span className="w-12 text-sm text-white/85">{m.label}</span>
+                  <span className="w-12 text-sm text-ink/85">{m.label}</span>
                   <span className="min-w-0 flex-1 truncate text-sm text-mist/55">
                     {[e.tags.join(", "), e.note].filter(Boolean).join(" — ")}
                   </span>
